@@ -19,10 +19,17 @@ const TodoBoard = () => {
     });
   };
 
+  const removeTodoHandler = (removeId: string) => {
+    setTodoList((prevTodoList) => {
+      const updateTodoList = prevTodoList.filter((item) => item.id != removeId);
+      return updateTodoList;
+    });
+  };
+
   return (
     <>
       <TodoInput addTodo={addTodoHandler} />
-      <TodoList items={todoList} />
+      <TodoList items={todoList} removeTodo={removeTodoHandler} />
     </>
   );
 };
