@@ -8,7 +8,7 @@ interface TodoListProps {
 
 const TodoList = ({ items, removeTodo }: TodoListProps) => {
   return (
-    <div>
+    <div className='bg-white rounded-lg w-4/5 min-w-64 mt-4 px-4'>
       {items.map((item) => {
         return <TodoItem key={item.id} item={item} removeTodo={removeTodo} />;
       })}

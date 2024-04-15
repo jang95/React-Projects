@@ -27,10 +27,12 @@ const TodoBoard = () => {
   };
 
   return (
-    <>
-      <TodoInput addTodo={addTodoHandler} />
-      <TodoList items={todoList} removeTodo={removeTodoHandler} />
-    </>
+    <div className='flex justify-center items-center h-screen'>
+      <main className='flex flex-col justify-center items-center w-1/3 min-w-80 rounded-lg border-2 border-gray-400 p-4'>
+        <TodoInput addTodo={addTodoHandler} />
+        <TodoList items={todoList} removeTodo={removeTodoHandler} />
+      </main>
+    </div>
   );
 };
 

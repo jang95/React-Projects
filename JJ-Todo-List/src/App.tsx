@@ -1,4 +1,3 @@
-import './App.css';
 import TodoBoard from './TodoBoard';
 
 function App() {
