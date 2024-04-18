@@ -1,14 +1,20 @@
 import { TodoData } from './types/TodoData';
 
-interface TodoItmeProps {
+interface TodoItemProps {
   item: TodoData;
   removeTodo: (removeId: string) => void;
   completeTodo: (completeId: string) => void;
+  editHandle: () => void;
 }
 
-const TodoItem = ({ item, removeTodo, completeTodo }: TodoItmeProps) => {
+const TodoItem = ({
+  item,
+  removeTodo,
+  completeTodo,
+  editHandle,
+}: TodoItemProps) => {
   return (
-    <div className='flex my-4 h-10 items-center'>
+    <>
       <input
         type='checkbox'
         id='myCheckbox'
@@ -20,7 +26,10 @@ const TodoItem = ({ item, removeTodo, completeTodo }: TodoItmeProps) => {
         {item.text}
       </span>
       <div className='ml-auto'>
-        <button className='rounded-lg bg-red-200 hover:bg-green-500 px-4 '>
+        <button
+          onClick={editHandle}
+          className='rounded-lg bg-red-200 hover:bg-green-500 px-4'
+        >
           수정
         </button>
         <button
@@ -30,7 +39,7 @@ const TodoItem = ({ item, removeTodo, completeTodo }: TodoItmeProps) => {
           삭제
         </button>
       </div>
-    </div>
+    </>
   );
 };
 
