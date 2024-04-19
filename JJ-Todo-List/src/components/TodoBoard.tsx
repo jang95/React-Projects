@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import TodoInput from './TodoInput';
 import TodoList from './TodoList';
-import { TodoData } from './types/TodoData';
+import { TodoData } from '../types/TodoData';
 
 const TodoBoard = () => {
   const [todoList, setTodoList] = useState<TodoData[]>([]);

@@ -1,4 +1,4 @@
-import TodoBoard from './TodoBoard';
+import TodoBoard from './components/TodoBoard';
 
 function App() {
   return <TodoBoard />;

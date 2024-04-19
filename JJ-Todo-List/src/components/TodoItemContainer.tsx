@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { TodoData } from './types/TodoData';
+import { TodoData } from '../types/TodoData';
 import TodoEdit from './TodoEdit';
 import TodoItem from './TodoItem';
 

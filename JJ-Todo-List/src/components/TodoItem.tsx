@@ -1,4 +1,4 @@
-import { TodoData } from './types/TodoData';
+import { TodoData } from '../types/TodoData';
 
 interface TodoItemProps {
   item: TodoData;

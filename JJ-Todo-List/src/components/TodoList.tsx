@@ -1,5 +1,5 @@
 import TodoItem from './TodoItemContainer';
-import { TodoData } from './types/TodoData';
+import { TodoData } from '../types/TodoData';
 
 interface TodoListProps {
   items: TodoData[];
