@@ -5,17 +5,9 @@ import TodoItem from './TodoItem';
 
 interface TodoItemContainerProps {
   item: TodoData;
-  removeTodo: (removeId: string) => void;
-  completeTodo: (completeId: string) => void;
-  editTodo: (editId: string, editText: string) => void;
 }
 
-const TodoItemContainer = ({
-  item,
-  removeTodo,
-  completeTodo,
-  editTodo,
-}: TodoItemContainerProps) => {
+const TodoItemContainer = ({ item }: TodoItemContainerProps) => {
   const [isEdit, setIsEdit] = useState(false);
 
   const editHandle = () => {
@@ -23,16 +15,11 @@ const TodoItemContainer = ({
   };
 
   return (
-    <div className='flex my-4 h-10 items-center'>
+    <div className='flex my-4 h-10 items-center border-b-2'>
       {isEdit ? (
-        <TodoEdit editTodo={editTodo} id={item.id} editHandle={editHandle} />
+        <TodoEdit id={item.id} editHandle={editHandle} />
       ) : (
-        <TodoItem
-          item={item}
-          removeTodo={removeTodo}
-          completeTodo={completeTodo}
-          editHandle={editHandle}
-        />
+        <TodoItem item={item} editHandle={editHandle} />
       )}
     </div>
   );

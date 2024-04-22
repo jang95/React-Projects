@@ -1,17 +1,23 @@
 import { useState } from 'react';
+import { useAppDispatch } from '../hooks';
+import { addTodo } from '../store';
+import { TodoData } from '../types/TodoData';
 
-interface TodoInputProps {
-  addTodo: (text: string) => void;
-}
-
-const TodoInput = ({ addTodo }: TodoInputProps) => {
+const TodoInput = () => {
+  const dispatch = useAppDispatch();
   const [inputText, setInputText] = useState('');
 
   const inputSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    addTodo(inputText);
+    const data: TodoData = {
+      id: String(new Date()), // 임시 고유 ID 생성;
+      text: inputText,
+      done: false,
+    };
+    dispatch(addTodo(data));
     setInputText('');
   };
+
   return (
     <form onSubmit={inputSubmit} className='flex justify-center w-3/4'>
       <label htmlFor='add-todo' />
