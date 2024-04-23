@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useAppDispatch } from '../hooks';
 import { editTodo } from '../store';
+import Button from './ui/Button';
 
 interface TodoEditProps {
   id: string;
@@ -29,12 +30,9 @@ const TodoEdit = ({ id, editHandle }: TodoEditProps) => {
         value={inputText}
         onChange={(e) => setInputText(e.target.value)}
       />
-      <button
-        type='submit'
-        className='rounded-lg bg-red-200 hover:bg-green-500 px-4'
-      >
+      <Button type='submit' primary>
         저장
-      </button>
+      </Button>
     </form>
   );
 };

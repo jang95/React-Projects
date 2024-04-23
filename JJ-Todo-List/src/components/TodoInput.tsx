@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useAppDispatch } from '../hooks';
 import { addTodo } from '../store';
 import { TodoData } from '../types/TodoData';
+import Button from './ui/Button';
 
 const TodoInput = () => {
   const dispatch = useAppDispatch();
@@ -19,7 +20,10 @@ const TodoInput = () => {
   };
 
   return (
-    <form onSubmit={inputSubmit} className='flex justify-center w-3/4'>
+    <form
+      onSubmit={inputSubmit}
+      className='flex justify-center w-3/4 min-w-[400px]'
+    >
       <label htmlFor='add-todo' />
       <input
         className='border-2 border-blue-300 focus:outline-green-200 pl-4 mr-4 w-3/4 min-w-48 h-10'
@@ -29,12 +33,9 @@ const TodoInput = () => {
         value={inputText}
         onChange={(e) => setInputText(e.target.value)}
       />
-      <button
-        type='submit'
-        className='rounded-lg bg-orange-500 hover:bg-green-200 px-4'
-      >
-        등록
-      </button>
+      <Button type='submit' primary>
+        추가
+      </Button>
     </form>
   );
 };

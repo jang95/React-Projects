@@ -1,6 +1,7 @@
 import { TodoData } from '../types/TodoData';
 import { useAppDispatch } from '../hooks';
 import { removeTodo, completeTodo } from '../store';
+import Button from './ui/Button';
 
 interface TodoItemProps {
   item: TodoData;
@@ -23,18 +24,16 @@ const TodoItem = ({ item, editHandle }: TodoItemProps) => {
         {item.text}
       </span>
       <div className='ml-auto'>
-        <button
-          onClick={editHandle}
-          className='rounded-lg bg-red-200 hover:bg-green-500 px-4'
-        >
+        <Button type='button' onClick={editHandle} secondary>
           수정
-        </button>
-        <button
-          className='rounded-lg bg-red-200 hover:bg-red-500 px-4 ml-2'
+        </Button>
+        <Button
+          type='button'
           onClick={() => dispatch(removeTodo(item.id))}
+          danger
         >
           삭제
-        </button>
+        </Button>
       </div>
     </>
   );
