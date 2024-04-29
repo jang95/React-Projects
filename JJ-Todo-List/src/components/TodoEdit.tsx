@@ -1,22 +1,22 @@
 import { useState } from 'react';
 import { useAppDispatch } from '../hooks';
-import { editTodo } from '../store';
+import { changeTodo, editTodo } from '../store';
 import Button from './ui/Button';
+import { TodoData } from '../types/TodoData';
 
 interface TodoEditProps {
-  id: string;
-  editHandle: () => void;
+  item: TodoData;
 }
 
-const TodoEdit = ({ id, editHandle }: TodoEditProps) => {
+const TodoEdit = ({ item }: TodoEditProps) => {
   const dispatch = useAppDispatch();
   const [inputText, setInputText] = useState('');
 
   const inputSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    dispatch(editTodo({ id, newText: inputText }));
+    dispatch(editTodo({ id: item.id, newText: inputText }));
     setInputText('');
-    editHandle();
+    dispatch(changeTodo({ id: item.id, isEdit: !item.edit }));
   };
 
   return (

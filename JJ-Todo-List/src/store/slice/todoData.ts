@@ -32,9 +32,20 @@ export const todoDataSlice = createSlice({
         }
       });
     },
+    changeTodo(
+      state: TodoData[],
+      action: PayloadAction<{ id: string; isEdit: boolean }>
+    ) {
+      const { id, isEdit } = action.payload;
+      state.forEach((item) => {
+        if (item.id === id) {
+          item.edit = isEdit;
+        }
+      });
+    },
   },
 });
 
-export const { addTodo, removeTodo, editTodo, completeTodo } =
+export const { addTodo, removeTodo, editTodo, completeTodo, changeTodo } =
   todoDataSlice.actions;
 export const todoDataReducer = todoDataSlice.reducer;

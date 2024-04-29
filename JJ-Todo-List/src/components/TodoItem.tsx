@@ -1,14 +1,13 @@
 import { TodoData } from '../types/TodoData';
 import { useAppDispatch } from '../hooks';
-import { removeTodo, completeTodo } from '../store';
+import { removeTodo, completeTodo, changeTodo } from '../store';
 import Button from './ui/Button';
 
 interface TodoItemProps {
   item: TodoData;
-  editHandle: () => void;
 }
 
-const TodoItem = ({ item, editHandle }: TodoItemProps) => {
+const TodoItem = ({ item }: TodoItemProps) => {
   const dispatch = useAppDispatch();
 
   return (
@@ -24,7 +23,13 @@ const TodoItem = ({ item, editHandle }: TodoItemProps) => {
         {item.text}
       </span>
       <div className='ml-auto'>
-        <Button type='button' onClick={editHandle} secondary>
+        <Button
+          type='button'
+          onClick={() =>
+            dispatch(changeTodo({ id: item.id, isEdit: !item.edit }))
+          }
+          secondary
+        >
           수정
         </Button>
         <Button

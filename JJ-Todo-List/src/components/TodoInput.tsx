@@ -14,6 +14,7 @@ const TodoInput = () => {
       id: String(new Date()), // 임시 고유 ID 생성;
       text: inputText,
       done: false,
+      edit: false,
     };
     dispatch(addTodo(data));
     setInputText('');
