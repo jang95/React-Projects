@@ -17,4 +17,5 @@
 
 ### JJ-Weather-APP
 실생활에 사용할 수 있을 정도의 퀄리티를 목표로 제작할 프로젝트
+
 <img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=black"> <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black"> <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=black"> <img src="https://img.shields.io/badge/Tailwind Css-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=black"> <img src="https://img.shields.io/badge/Redux-764ABC?style=for-the-badge&logo=redux&logoColor=black">
