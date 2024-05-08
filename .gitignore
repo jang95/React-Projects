@@ -5,3 +5,5 @@ JJ-Todo-List/vite.config.ts
 JJ-Todo-List/src/vite-env.d.ts
 JJ-Todo-List/tailwind.config.js
 JJ-Todo-List/postcss.config.js
+JJ-Weather-App/package-lock.json
+JJ-Weather-App/.env
