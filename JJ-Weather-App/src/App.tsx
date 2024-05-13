@@ -1,6 +1,9 @@
 import { useEffect } from 'react';
 import { useGeoLocation } from './hooks/useGeoLocation';
 import { fetchWeatherData } from './api/weather';
+import Header from './components/Header';
+import Aside from './components/Aside';
+import Main from './components/Main';
 
 const geolocationOptions = {
   enableHighAccuracy: true,
@@ -19,7 +22,15 @@ function App() {
     }
   }, [location, error]);
 
-  return <></>;
+  return (
+    <div className='max-w-[1200px] mx-auto'>
+      <Header />
+      <div className='flex justify-between flex-wrap'>
+        <Aside />
+        <Main />
+      </div>
+    </div>
+  );
 }
 
 export default App;

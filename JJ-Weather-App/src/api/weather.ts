@@ -1,7 +1,28 @@
 import axios from 'axios';
 import { GeoLocation } from '../hooks/useGeoLocation';
-
+const BASE_URL = 'http://api.openweathermap.org/data/2.5/weather';
 const API_KEY: string = import.meta.env.VITE_OPEN_WEATHER_API_KEY;
+
+export const fetchCityWeatherData = async (city: string) => {
+  try {
+    const response = await axios.get(
+      `${BASE_URL}?q=${city}&appid=${API_KEY}&units=metric`
+    );
+
+    console.log('현재 도시 날씨 정보', response.data);
+
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response) {
+      const axiosError = error;
+      if (axiosError.response) {
+        const { data } = axiosError.response;
+        console.log('현재 지역 날씨 에러', data);
+      }
+    }
+  }
+};
+
 export const fetchWeatherData = async (location: GeoLocation) => {
   const { latitude, longitude } = location;
   try {
