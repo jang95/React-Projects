@@ -8,7 +8,7 @@ interface TodoItemProps {
 }
 
 const TodoItem = ({ item }: TodoItemProps) => {
-  const dispatch = useAppDispatch();
+  const dispatch = ();
 
   return (
     <>

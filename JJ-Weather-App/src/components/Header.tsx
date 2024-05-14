@@ -3,28 +3,46 @@ import { GiSouthKorea } from 'react-icons/gi';
 import { IoSearchSharp } from 'react-icons/io5';
 import { MdOutlineMyLocation } from 'react-icons/md';
 import { fetchCityWeatherData } from '../api/weather';
+import { useAppDispatch } from '../hooks';
+import { setCurrentData } from '../store/slice/weatherDataSlice';
+import { CurrentData, WeatherData } from '../types/currentData';
 
 const Header = () => {
   const [term, setTerm] = useState('');
+  const dispatch = useAppDispatch();
 
-  const getCityWeatherData = async (
-    event: React.FormEvent<HTMLFormElement>
-  ) => {
+  const citySearch = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = await fetchCityWeatherData(term);
-    console.log('확인', data);
+
+    setCityCurData(data);
+  };
+
+  const setCityCurData = (data: WeatherData) => {
+    const { name, main, weather, wind, rain, snow, sys } = data;
+
+    const result: CurrentData = {
+      name,
+      main,
+      weather: weather[0],
+      wind,
+      rain,
+      snow,
+      sys,
+    };
+    dispatch(setCurrentData(result));
   };
 
   return (
-    <header className='flex justify-between items-center min-w-[300px] mx-auto py-4'>
+    <header className='flex justify-between items-center min-w-[300px] mx-auto py-4 md:mx-2'>
       <div className='flex items-center'>
         <GiSouthKorea className='w-28 h-28' />
         <span className='text-3xl'>JJ-Weather</span>
       </div>
 
-      <form className='flex' onSubmit={getCityWeatherData}>
-        <div className='flex items-center w-[350px] h-16 px-4 gap-4 rounded-full bg-slate-50'>
-          <IoSearchSharp className='bg-white w-8 h-8' />
+      <form className='flex' onSubmit={citySearch}>
+        <div className='flex items-center w-[100%] h-16 px-4 gap-4 rounded-full bg-slate-50 text-black text-3xl font-bold'>
+          <IoSearchSharp className='w-8 h-8' color='black' />
           <input
             className='outline-none'
             type='text'

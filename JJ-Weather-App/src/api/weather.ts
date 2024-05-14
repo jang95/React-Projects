@@ -9,8 +9,6 @@ export const fetchCityWeatherData = async (city: string) => {
       `${BASE_URL}?q=${city}&appid=${API_KEY}&units=metric`
     );
 
-    console.log('현재 도시 날씨 정보', response.data);
-
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {

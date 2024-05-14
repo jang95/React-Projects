@@ -1,28 +1,33 @@
 import { CiCalendar, CiLocationOn } from 'react-icons/ci';
 import { MdWbSunny } from 'react-icons/md';
+import { useAppSelector } from '../hooks';
+import { RootState } from '../store';
 
 const Aside = () => {
+  const curWeatherData = useAppSelector(
+    (state: RootState) => state.currentData
+  );
   return (
-    <div className='flex flex-col gap-4'>
+    <div className='flex flex-col gap-4 md: ml-2'>
       <div className='w-[270px] bg-zinc-800 rounded-3xl p-8'>
         <span className='text-4xl'>now</span>
         <div className='flex items-center gap-8 py-4'>
-          <span className='text-8xl py-4'>19°c</span>
+          <span className='text-6xl py-4'>{curWeatherData.main.temp}°c</span>
           <MdWbSunny className='w-24 h-24 mt-4' />
         </div>
-        <span>날씨 상황</span>
+        <span>{curWeatherData.weather.main}</span>
         <div className='border-b-white border-b-[1px] my-4' />
-        <div className='flex gap-2'>
-          <CiCalendar />
+        <div className='flex items-center gap-2'>
+          <CiCalendar className='w-12 h-12' />
           날짜
         </div>
-        <div className='flex gap-2'>
-          <CiLocationOn />
-          위치
+        <div className='flex items-center gap-2'>
+          <CiLocationOn className='w-12 h-12' />
+          {curWeatherData.name}
         </div>
       </div>
 
-      <span>5 days Forecast</span>
+      <span className='pl-2'>5 days Forecast</span>
 
       <div className='w-[270px] bg-zinc-800 rounded-3xl p-8'>
         <div className='flex justify-between my-4'>

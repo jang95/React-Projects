@@ -4,6 +4,9 @@ import { fetchWeatherData } from './api/weather';
 import Header from './components/Header';
 import Aside from './components/Aside';
 import Main from './components/Main';
+import { CurrentData, WeatherData } from './types/currentData';
+import { useAppDispatch } from './hooks';
+import { setCurrentData } from './store/slice/weatherDataSlice';
 
 const geolocationOptions = {
   enableHighAccuracy: true,
@@ -13,21 +16,48 @@ const geolocationOptions = {
 
 function App() {
   const { location, error } = useGeoLocation(geolocationOptions);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (location) {
-      fetchWeatherData(location);
-    } else {
-      console.log(error);
-    }
+    const fetchData = async () => {
+      if (location) {
+        const data = await fetchWeatherData(location);
+        setCityCurData(data);
+      } else {
+        console.log(error);
+      }
+    };
+
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location, error]);
 
+  const setCityCurData = (data: WeatherData) => {
+    const { name, main, weather, wind, rain, snow, sys } = data;
+
+    const result: CurrentData = {
+      name,
+      main,
+      weather: weather[0],
+      wind,
+      rain,
+      snow,
+      sys,
+    };
+
+    dispatch(setCurrentData(result));
+  };
+
   return (
-    <div className='max-w-[1200px] mx-auto'>
+    <div className='max-w-[1280px] mx-auto'>
       <Header />
-      <div className='flex justify-between flex-wrap'>
-        <Aside />
-        <Main />
+      <div className='flex flex-wrap justify-between gap-8 mx-4'>
+        <div className='w-calc(100% - 270px)'>
+          <Aside />
+        </div>
+        <div className='xl:w-[75%] lg:w-[70%] md:w-[60%] w-full'>
+          <Main />
+        </div>
       </div>
     </div>
   );
