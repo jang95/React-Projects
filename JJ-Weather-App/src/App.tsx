@@ -1,12 +1,16 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useGeoLocation } from './hooks/useGeoLocation';
-import { fetchWeatherData } from './api/weather';
+import { fetchWeatherData, fetch5DaysWeatherData } from './api/weather';
 import Header from './components/Header';
 import Aside from './components/Aside';
 import Main from './components/Main';
 import { CurrentData, WeatherData } from './types/currentData';
 import { useAppDispatch } from './hooks';
 import { setCurrentData } from './store/slice/weatherDataSlice';
+
+import { useQuery } from '@tanstack/react-query';
+import { ForecastResponse } from './types/responseTypes';
+import { setWeatherForecast } from './store/slice/weatherForecast';
 
 const geolocationOptions = {
   enableHighAccuracy: true,
@@ -15,44 +19,79 @@ const geolocationOptions = {
 };
 
 function App() {
-  const { location, error } = useGeoLocation(geolocationOptions);
+  const { location } = useGeoLocation(geolocationOptions);
   const dispatch = useAppDispatch();
+
+  const { data: curWeather } = useQuery({
+    queryKey: ['weather', location],
+    queryFn: () => fetchWeatherData(location),
+    enabled: !!location,
+  });
+
+  const { data: weatherForecast } = useQuery({
+    queryKey: ['forecast', location],
+    queryFn: () => fetch5DaysWeatherData(location),
+  });
+
+  const setForecastData = useCallback(
+    (data: ForecastResponse) => {
+      const { city, list } = data;
+
+      const forecastList = list.map((item) => ({
+        dt: item.dt,
+        main: item.main,
+        weather: item.weather[0],
+      }));
+
+      const result = {
+        city,
+        forecastList,
+      };
+      dispatch(setWeatherForecast(result));
+    },
+    [dispatch]
+  );
+
+  const setCityCurData = useCallback(
+    (data: WeatherData) => {
+      const { name, main, weather, wind, rain, snow, sys, dt, timezone } = data;
+
+      const result: CurrentData = {
+        name,
+        main,
+        weather: weather[0],
+        wind,
+        rain,
+        snow,
+        sys,
+        dt,
+        timezone,
+      };
+
+      dispatch(setCurrentData(result));
+    },
+    [dispatch]
+  );
 
   useEffect(() => {
     const fetchData = async () => {
-      if (location) {
-        const data = await fetchWeatherData(location);
-        setCityCurData(data);
-      } else {
-        console.log(error);
+      if (curWeather) {
+        setCityCurData(curWeather);
+      }
+
+      if (weatherForecast) {
+        setForecastData(weatherForecast);
       }
     };
 
     fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location, error]);
-
-  const setCityCurData = (data: WeatherData) => {
-    const { name, main, weather, wind, rain, snow, sys } = data;
-
-    const result: CurrentData = {
-      name,
-      main,
-      weather: weather[0],
-      wind,
-      rain,
-      snow,
-      sys,
-    };
-
-    dispatch(setCurrentData(result));
-  };
+  }, [location, curWeather, weatherForecast, setCityCurData, setForecastData]);
 
   return (
     <div className='max-w-[1280px] mx-auto'>
       <Header />
       <div className='flex flex-wrap justify-between gap-8 mx-4'>
-        <div className='w-calc(100% - 270px)'>
+        <div className='w-calc(100% - 300px) mx-auto'>
           <Aside />
         </div>
         <div className='xl:w-[75%] lg:w-[70%] md:w-[60%] w-full'>

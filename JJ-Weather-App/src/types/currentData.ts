@@ -1,16 +1,13 @@
 export interface CurrentData {
   name: string;
   main: Partial<MainData>;
-  weather: {
-    description: string;
-    icon: string;
-    id: number;
-    main: string;
-  };
+  weather: Partial<weatherData>;
   wind: Partial<WindData>;
   rain?: Partial<PrecipitationData> | undefined;
   snow?: Partial<PrecipitationData> | undefined;
   sys: Partial<SysData>;
+  dt: number;
+  timezone: number;
 }
 
 export interface MainData {
@@ -20,6 +17,13 @@ export interface MainData {
   temp: number;
   temp_max: number;
   temp_min: number;
+}
+
+export interface weatherData {
+  description: string;
+  icon: string;
+  id: number;
+  main: string;
 }
 
 export interface WindData {

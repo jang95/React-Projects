@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { GiSouthKorea } from 'react-icons/gi';
 import { IoSearchSharp } from 'react-icons/io5';
 import { MdOutlineMyLocation } from 'react-icons/md';
-import { fetchCityWeatherData } from '../api/weather';
+import { fetchWeatherData } from '../api/weather';
 import { useAppDispatch } from '../hooks';
 import { setCurrentData } from '../store/slice/weatherDataSlice';
 import { CurrentData, WeatherData } from '../types/currentData';
@@ -13,13 +13,13 @@ const Header = () => {
 
   const citySearch = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = await fetchCityWeatherData(term);
+    const data = await fetchWeatherData(term);
 
     setCityCurData(data);
   };
 
   const setCityCurData = (data: WeatherData) => {
-    const { name, main, weather, wind, rain, snow, sys } = data;
+    const { name, main, weather, wind, rain, snow, sys, dt, timezone } = data;
 
     const result: CurrentData = {
       name,
@@ -29,6 +29,8 @@ const Header = () => {
       rain,
       snow,
       sys,
+      dt,
+      timezone,
     };
     dispatch(setCurrentData(result));
   };

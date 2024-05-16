@@ -29,6 +29,8 @@ const initialState: CurrentData = {
     sunrise: 0,
     sunset: 0,
   },
+  dt: 0,
+  timezone: 0,
 };
 
 export const currentDataSlice = createSlice({
