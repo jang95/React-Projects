@@ -2,15 +2,25 @@ import { useCallback, useEffect } from 'react';
 import { useGeoLocation } from './hooks/useGeoLocation';
 import { fetchWeatherData, fetch5DaysWeatherData } from './api/weather';
 import Header from './components/Header';
-import Aside from './components/Aside';
-import Main from './components/Main';
-import { CurrentData, WeatherData } from './types/currentData';
+// import Aside from './components/Aside';
+// import Main from './components/Main';
 import { useAppDispatch } from './hooks';
 import { setCurrentData } from './store/slice/weatherDataSlice';
 
 import { useQuery } from '@tanstack/react-query';
-import { ForecastResponse } from './types/responseTypes';
+import { ForecastResponse, SearchByCityResponse } from './types/responseTypes';
 import { setWeatherForecast } from './store/slice/weatherForecast';
+
+// router
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { CurrentData } from './types/currentData';
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Header />,
+  },
+]);
 
 const geolocationOptions = {
   enableHighAccuracy: true,
@@ -53,7 +63,7 @@ function App() {
   );
 
   const setCityCurData = useCallback(
-    (data: WeatherData) => {
+    (data: SearchByCityResponse) => {
       const { name, main, weather, wind, rain, snow, sys, dt, timezone } = data;
 
       const result: CurrentData = {
@@ -88,16 +98,19 @@ function App() {
   }, [location, curWeather, weatherForecast, setCityCurData, setForecastData]);
 
   return (
-    <div className='max-w-[1280px] mx-auto'>
-      <Header />
-      <div className='flex flex-wrap justify-between gap-8 mx-4'>
-        <div className='w-calc(100% - 300px) mx-auto'>
-          <Aside />
-        </div>
-        <div className='xl:w-[75%] lg:w-[70%] md:w-[60%] w-full'>
-          <Main />
-        </div>
-      </div>
+    // <div className='max-w-[1280px] mx-auto'>
+    //   <Header />
+    //   <div className='flex flex-wrap justify-between gap-8 mx-4'>
+    //     <div className='w-calc(100% - 300px) mx-auto'>
+    //       <Aside />
+    //     </div>
+    //     <div className='xl:w-[75%] lg:w-[70%] md:w-[60%] w-full'>
+    //       <Main />
+    //     </div>
+    //   </div>
+    // </div>
+    <div className='container mx-auto px-12'>
+      <RouterProvider router={router} />
     </div>
   );
 }
