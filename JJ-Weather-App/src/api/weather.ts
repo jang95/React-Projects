@@ -1,13 +1,18 @@
 import axios from 'axios';
-import { GeoLocation } from '../hooks/useGeoLocation';
 const BASE_URL = 'http://api.openweathermap.org/data/2.5/weather';
 const FORECAST_URL = 'https://api.openweathermap.org/data/2.5/forecast';
 const API_KEY: string = import.meta.env.VITE_OPEN_WEATHER_API_KEY;
 
+// 통신에 오류가 있을 경우
 const basicLocation = {
   latitude: 37.5665,
   longitude: 126.978,
 };
+
+interface GeoLocation {
+  latitude: number;
+  longitude: number;
+}
 
 export const fetchWeatherData = async (
   param: string | GeoLocation | undefined
