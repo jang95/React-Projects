@@ -4,12 +4,15 @@ import Aside from '../../components/Aside';
 import Main from '../../components/Main';
 import { setCurrentData } from '../../store/slice/weatherDataSlice';
 import { useAppDispatch } from '../../hooks';
-import { CurrentData } from '../../types/currentData';
 import {
   ForecastResponse,
   SearchByCityResponse,
 } from '../../types/responseTypes';
 import { setWeatherForecast } from '../../store/slice/weatherForecast';
+import {
+  transformCurrentWeather,
+  transformWeatherForecast,
+} from '../../uitls/transformData';
 
 export interface LoaderData {
   currentWeather: SearchByCityResponse;
@@ -22,38 +25,12 @@ const Board = () => {
 
   useEffect(() => {
     if (currentWeather) {
-      const { name, main, weather, wind, rain, snow, sys, dt, timezone } =
-        currentWeather;
-
-      const currentData: CurrentData = {
-        name,
-        main,
-        weather: weather[0],
-        wind,
-        rain,
-        snow,
-        sys,
-        dt,
-        timezone,
-      };
-
+      const currentData = transformCurrentWeather(currentWeather);
       dispatch(setCurrentData(currentData));
     }
 
     if (weatherForecast) {
-      const { city, list } = weatherForecast;
-
-      const forecastList = list.map((item) => ({
-        dt: item.dt,
-        main: item.main,
-        weather: item.weather[0],
-      }));
-
-      const forecastData = {
-        city,
-        forecastList,
-      };
-
+      const forecastData = transformWeatherForecast(weatherForecast);
       dispatch(setWeatherForecast(forecastData));
     }
   }, [currentWeather, weatherForecast, dispatch]);

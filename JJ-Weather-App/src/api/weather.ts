@@ -28,6 +28,7 @@ export const fetchWeatherData = async (
   } else {
     // 위도와 경도가 포함된 GeoLocation 객체가 인수로 제공된 경우
     const { latitude, longitude } = param;
+    console.log('param', param);
     url = `${BASE_URL}?lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=metric`;
   }
 
