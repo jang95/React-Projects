@@ -19,20 +19,26 @@ const SearchInput = () => {
   const citySearch = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const term = termRef.current?.value;
-    // 입력된 검색어가 있을 때만 refetch 실행
+
     if (term) {
-      const { data: curWeather } = await queryClient.ensureQueryData({
-        queryKey: ['weather', term],
-        queryFn: async () => await fetchWeatherData(term),
-      });
+      try {
+        const curWeather = await queryClient.ensureQueryData({
+          queryKey: ['weather', term],
+          queryFn: () => fetchWeatherData(term),
+        });
 
-      const { data: weatherForecast } = await queryClient.ensureQueryData({
-        queryKey: ['forecast', term],
-        queryFn: async () => await fetch5DaysWeatherData(term),
-      });
+        const weatherForecast = await queryClient.ensureQueryData({
+          queryKey: ['forecast', term],
+          queryFn: () => fetch5DaysWeatherData(term),
+        });
 
-      if (curWeather && weatherForecast) {
-        setWeatherData(curWeather, weatherForecast);
+        if (curWeather && weatherForecast) {
+          setWeatherData(curWeather, weatherForecast);
+          console.log('setWeatherData', curWeather);
+        }
+      } catch (error) {
+        console.error('날씨 데이터를 가져오는 중 오류 발생:', error);
+        alert('날씨 데이터를 가져오는 중 오류 발생!');
       }
       termRef.current.value = '';
     }
