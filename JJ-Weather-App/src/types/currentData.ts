@@ -8,6 +8,7 @@ export interface CurrentData {
   sys: SysData;
   dt: number;
   timezone: number;
+  visibility: number;
 }
 
 export interface MainData {

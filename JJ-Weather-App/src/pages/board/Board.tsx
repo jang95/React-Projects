@@ -5,6 +5,7 @@ import Main from '../../components/Main';
 import { setCurrentData } from '../../store/slice/weatherDataSlice';
 import { useAppDispatch } from '../../hooks';
 import {
+  AirPollutionResponse,
   ForecastResponse,
   SearchByCityResponse,
 } from '../../types/responseTypes';
@@ -13,15 +14,18 @@ import {
   transformCurrentWeather,
   transformWeatherForecast,
 } from '../../uitls/transformData';
+import { setAirPollution } from '../../store/slice/airPollutionSlice';
 
 export interface LoaderData {
   currentWeather: SearchByCityResponse;
   weatherForecast: ForecastResponse;
+  airPollution: AirPollutionResponse;
 }
 
 const Board = () => {
   const dispatch = useAppDispatch();
-  const { currentWeather, weatherForecast } = useLoaderData() as LoaderData;
+  const { currentWeather, weatherForecast, airPollution } =
+    useLoaderData() as LoaderData;
 
   useEffect(() => {
     if (currentWeather) {
@@ -33,7 +37,11 @@ const Board = () => {
       const forecastData = transformWeatherForecast(weatherForecast);
       dispatch(setWeatherForecast(forecastData));
     }
-  }, [currentWeather, weatherForecast, dispatch]);
+
+    if (airPollution) {
+      dispatch(setAirPollution(airPollution));
+    }
+  }, [currentWeather, weatherForecast, airPollution, dispatch]);
 
   return (
     <div className='flex flex-wrap'>

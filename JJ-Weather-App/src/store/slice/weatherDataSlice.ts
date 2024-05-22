@@ -31,6 +31,9 @@ const initialState: CurrentData = {
   },
   dt: 0,
   timezone: 0,
+  visibility: 0,
+  rain: undefined,
+  snow: undefined,
 };
 
 export const currentDataSlice = createSlice({

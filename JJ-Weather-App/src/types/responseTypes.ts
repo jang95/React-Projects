@@ -94,3 +94,27 @@ export interface SearchByCityResponse {
   name: string;
   cod: number;
 }
+
+// 공기 상태 데이터 타입
+export interface AirPollutionResponse {
+  coord: {
+    lon: number;
+    lat: number;
+  };
+  list: Array<{
+    main: {
+      aqi: number;
+    };
+    components: {
+      co: number;
+      no: number;
+      no2: number;
+      o3: number;
+      so2: number;
+      pm2_5: number;
+      pm10: number;
+      nh3: number;
+    };
+    dt: number;
+  }>;
+}

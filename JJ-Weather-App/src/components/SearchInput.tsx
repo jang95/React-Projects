@@ -1,15 +1,24 @@
 import React, { useRef } from 'react';
 import { IoSearchSharp } from 'react-icons/io5';
-import { fetch5DaysWeatherData, fetchWeatherData } from '../api/weather';
+import {
+  fetch5DaysWeatherData,
+  fetchWeatherData,
+  fetchAirPollution,
+} from '../api/weather';
 import { useAppDispatch } from '../hooks';
 import { setCurrentData } from '../store/slice/weatherDataSlice';
 import { useQueryClient } from '@tanstack/react-query';
 import { setWeatherForecast } from '../store/slice/weatherForecast';
-import { ForecastResponse, SearchByCityResponse } from '../types/responseTypes';
+import {
+  AirPollutionResponse,
+  ForecastResponse,
+  SearchByCityResponse,
+} from '../types/responseTypes';
 import {
   transformCurrentWeather,
   transformWeatherForecast,
 } from '../uitls/transformData';
+import { setAirPollution } from '../store/slice/airPollutionSlice';
 
 const SearchInput = () => {
   const termRef = useRef<HTMLInputElement>(null);
@@ -32,9 +41,14 @@ const SearchInput = () => {
           queryFn: () => fetch5DaysWeatherData(term),
         });
 
+        const airPollution = await queryClient.ensureQueryData({
+          queryKey: ['airPollution', curWeather.coord],
+          queryFn: () => fetchAirPollution(curWeather.coord),
+        });
+
+        console.log('airPollution', airPollution);
         if (curWeather && weatherForecast) {
-          setWeatherData(curWeather, weatherForecast);
-          console.log('setWeatherData', curWeather);
+          setWeatherData(curWeather, weatherForecast, airPollution);
         }
       } catch (error) {
         console.error('날씨 데이터를 가져오는 중 오류 발생:', error);
@@ -46,12 +60,14 @@ const SearchInput = () => {
 
   const setWeatherData = (
     curWeather: SearchByCityResponse,
-    weatherForecast: ForecastResponse
+    weatherForecast: ForecastResponse,
+    airPollution: AirPollutionResponse
   ) => {
     const searchWeather = transformCurrentWeather(curWeather);
     const searchForecast = transformWeatherForecast(weatherForecast);
     dispatch(setCurrentData(searchWeather));
     dispatch(setWeatherForecast(searchForecast));
+    dispatch(setAirPollution(airPollution));
   };
 
   return (

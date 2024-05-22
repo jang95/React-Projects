@@ -4,8 +4,18 @@ import { ForecastResponse, SearchByCityResponse } from '../types/responseTypes';
 export const transformCurrentWeather = (
   currentWeather: SearchByCityResponse
 ): CurrentData => {
-  const { name, main, weather, wind, rain, snow, sys, dt, timezone } =
-    currentWeather;
+  const {
+    name,
+    main,
+    weather,
+    wind,
+    rain,
+    snow,
+    sys,
+    dt,
+    timezone,
+    visibility,
+  } = currentWeather;
 
   return {
     name,
@@ -17,6 +27,7 @@ export const transformCurrentWeather = (
     sys,
     dt,
     timezone,
+    visibility,
   };
 };
 
