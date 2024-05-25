@@ -60,7 +60,8 @@ export const getTime = function (timeUnix: number, timezone: number) {
   const minutes = date.getUTCMinutes();
   const period = hours >= 12 ? 'PM' : 'AM';
   const formattedHours = hours % 12 || 12;
-  const formattedMinutes = minutes < 10 ? '0' + minutes : minutes + period;
+  const formattedMinutes =
+    minutes < 10 ? '0' + minutes : minutes + ' ' + period;
 
-  return `${formattedHours}:${formattedMinutes}${period}`;
+  return `${formattedHours}:${formattedMinutes}`;
 };
