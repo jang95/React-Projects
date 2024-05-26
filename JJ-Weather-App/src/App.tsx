@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Root from './pages/Root';
 import Board from './pages/board/Board';
 import { boardLoader } from './pages/board/boardLoader';
+import SearchBoard from './pages/searchBoard/SearchBoard';
 
 const router = createBrowserRouter([
   {
@@ -13,6 +14,10 @@ const router = createBrowserRouter([
         index: true,
         element: <Board />,
         loader: boardLoader,
+      },
+      {
+        path: 'search/:city',
+        element: <SearchBoard />,
       },
     ],
   },

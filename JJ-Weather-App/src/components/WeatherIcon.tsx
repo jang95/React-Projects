@@ -1,4 +1,4 @@
-import { WiRain, WiSnow, WiThunderstorm } from 'react-icons/wi';
+import { WiRain, WiSnow, WiThunderstorm, WiFog } from 'react-icons/wi';
 
 import { MdWbSunny, MdWbCloudy, MdWifiTetheringError } from 'react-icons/md';
 
@@ -15,13 +15,15 @@ const WeatherIcon = ({ weatherType, size }: WeatherIconProps) => {
     case 'Clouds':
       return <MdWbCloudy className={`${size} mt-4`} />;
     case 'Rain':
-      return <WiRain />;
+      return <WiRain className={`${size} mt-4`} />;
     case 'Snow':
-      return <WiSnow />;
+      return <WiSnow className={`${size} mt-4`} />;
     case 'Thunderstorm':
-      return <WiThunderstorm />;
+      return <WiThunderstorm className={`${size} mt-4`} />;
+    case 'Mist':
+      return <WiFog className={`${size} mt-4`} />;
     default:
-      return <MdWifiTetheringError />;
+      return <MdWifiTetheringError className={`${size} mt-4`} />;
   }
 };
 

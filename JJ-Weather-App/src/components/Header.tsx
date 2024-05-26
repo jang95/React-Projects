@@ -1,7 +1,7 @@
 import { GiSouthKorea } from 'react-icons/gi';
 import { MdOutlineMyLocation } from 'react-icons/md';
 import { Link } from 'react-router-dom';
-import SearchImput from './SearchInput';
+import SearchInput from './SearchInput';
 
 const Header = () => {
   return (
@@ -11,7 +11,7 @@ const Header = () => {
         JJ-Weather
       </Link>
 
-      <SearchImput />
+      <SearchInput />
 
       <div className='flex items-center bg-purple-500 h-16 rounded-full p-4 gap-2'>
         <MdOutlineMyLocation className='w-8 h-8' />
