@@ -10,7 +10,7 @@ const Main = () => {
   const currentData = useAppSelector((state) => state.currentData);
 
   return (
-    <div className='flex flex-col justify-center items-center w-full bg-zinc-800 rounded-3xl ml-2'>
+    <div className='flex flex-col justify-center items-center bg-zinc-800 rounded-3xl mx-2'>
       <span className='p-8 text-4xl font-bold'>Todays Hightights</span>
 
       <div className='flex flex-wrap w-full justify-between py-8 gap-2'>

@@ -44,13 +44,9 @@ const Board = () => {
   }, [currentWeather, weatherForecast, airPollution, dispatch]);
 
   return (
-    <div className='flex flex-wrap'>
-      <div className='xl:w-[30%] lg:w-[35%] md:w-[45%]'>
-        <Aside />
-      </div>
-      <div className='xl:w-[70%] lg:w-[65%] md:w-[55%]'>
-        <Main />
-      </div>
+    <div className='flex flex-col md:flex-row justify-center'>
+      <Aside />
+      <Main />
     </div>
   );
 };

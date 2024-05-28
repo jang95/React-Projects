@@ -12,7 +12,7 @@ const Aside = () => {
 
   const date = getDate(curWeatherData.dt, curWeatherData.timezone);
   return (
-    <div className='flex flex-col gap-4 md: ml-2'>
+    <div className='flex flex-col gap-4 mx-2'>
       <div className='bg-zinc-800 rounded-3xl p-8'>
         <span className='text-4xl'>now</span>
         <div className='flex items-center justify-center gap-8 py-4'>

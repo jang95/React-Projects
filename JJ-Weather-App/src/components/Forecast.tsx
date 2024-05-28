@@ -15,7 +15,7 @@ const Forecast = () => {
       {days.map((item) => {
         return (
           <div key={item.dt} className='flex justify-between'>
-            <div className='flex items-center gap-8'>
+            <div className='flex items-center gap-4'>
               <WeatherIcon weatherType={item.weather.main} size={'w-8 h-8'} />
               <span>{Math.floor(item.main.temp)}°c</span>
               <span>{getDate(item.dt, city.timezone)}</span>
